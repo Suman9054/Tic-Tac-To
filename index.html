@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+      <title>Tic-Tac-To</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <style>
+          *{
+              margin: 0;
+                padding: 0;
+                  box-sizing: border-box;
+                    font-family: 'Poppins', sans-serif;
+                    }
+                    body{
+                      text-align: center;
+                        
+                          background: #5AAA95;
+                          }
+                          .container{
+                            height: 70vw;
+                              display: flex;
+                                justify-content: center;
+                                  align-items: center;
+                                    
+                                    }
+                                    .game{
+                                      height: 60vmin;
+                                        width: 60vmin;
+                                          display: flex;
+                                            flex-wrap: wrap;
+                                              justify-content: center;
+                                                align-items: center;
+                                                  gap: 1.5vmin;
+                                                    
+                                                    }
+                                                    .box{
+                                                      height: 18vmin;
+                                                        width: 18vmin;
+                                                          border:none;
+                                                            border-radius: 1rem;
+                                                              background: #fff;
+                                                                font-size: 8vmin;
+                                                                  color: #ab5246;
+                                                                  } 
+                                                                  #btn{
+                                                                    padding:1rem;
+                                                                      border:none;
+                                                                        border-radius: 1rem;
+                                                                          font-size: 1.25rem;
+                                                                            background: #191913;
+                                                                              color: #fff;
+                                                                                
+
+                                                                                  }
+                                                                                  #msg{
+                                                                                    font-size: 5vmin;
+                                                                                      color: #fff;
+                                                                                      }
+                                                                                      .messegecontanur {
+                                                                                        height: 30vmin;
+                                                                                        }
+
+                                                                                        .hide {
+                                                                                          display: none;
+                                                                                          }
+
+                                                                                          
+          }
+          </style>
+        </head>
+
+        <body>
+        <div class="messegecontanur hide">
+           <p id="msg">
+                 winner
+                    </p>
+                       <button id="btn">New Game</button>
+                         
+                         </div>
+                           
+
+                           <h1>
+                              Tic-tac-to
+                              </h1>
+                              <main>
+                                <div class="container">
+                                    <div class="game" >
+                                      <button class="box"></button>
+                                          <button class="box"></button>
+                                              <button class="box"></button>
+                                                  <button class="box"></button>
+                                                      <button class="box"></button>
+                                                          <button class="box"></button>
+                                                              <button class="box"></button>
+                                                                  <button class="box"></button>
+                                                                      <button class="box"></button>
+                                                                        </div>
+                                                                          </div>
+                                                                          </main>
+                                        
+                                        
+                    <script>
+                    window.addEventListener('load', () => {
+  let boxes = document.querySelectorAll('.box');
+  let btn = document.querySelector('#btn');
+  let messegecontanur = document.querySelector('.messegecontanur');
+
+  let turno = true;
+  const winPatterns = [
+    [0, 1, 2],
+    [0, 3, 6],
+    [0, 4, 8],
+    [1, 4, 7],
+    [2, 5, 8],
+    [2, 4, 6],
+    [3, 4, 5],
+    [6, 7, 8]
+  ];
+
+  const resetGame = () => {
+    turno = true;
+    enableBoxes();
+    messegecontanur.classList.add('hide');
+    btn.classList.add('hide');
+    
+    btn.innerText = "New Game";
+
+    boxes.forEach((box) => {
+      box.innerText = "";
+      box.disabled = false;
+    });
+  };
+
+  boxes.forEach((box) => {
+    box.addEventListener('click', () => {
+      if (turno) {
+        box.innerText = "o";
+        turno = false;
+      } else {
+        box.innerText = "x";
+        turno = true;
+      }
+      box.disabled = true;
+      checkWinner();
+    });
+  });
+
+  const disableAllBoxes = () => {
+    boxes.forEach((box) => {
+      box.disabled = true;
+    });
+  };
+
+  const enableBoxes = () => {
+    boxes.forEach((box) => {
+      box.disabled = false;
+    });
+  };
+
+  const showWinner = (winner) => {
+    messegecontanur.innerText = `${winner} is the winner`;
+    messegecontanur.classList.remove('hide');
+    disableAllBoxes();
+    btn.classList.remove('hide');
+    
+    btn.innerText = "Play Again";
+  };
+
+  const checkWinner = () => {
+    for (let pattern of winPatterns) {
+      let pos1val = boxes[pattern[0]].innerText;
+      let pos2val = boxes[pattern[1]].innerText;
+      let pos3val = boxes[pattern[2]].innerText;
+      if (pos1val === pos2val && pos2val === pos3val && pos1val !== "") {
+        showWinner(pos1val);
+      }
+    }
+  };
+
+  btn.addEventListener('click', resetGame);
+});
+    
+                    </script>
+
+                                                                            </body>
+
+                                                                            </html>
